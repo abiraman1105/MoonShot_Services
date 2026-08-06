@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useScrollPosition } from '../../hooks/useScrollPosition.js'
 import { NAV_LINKS } from '../../constants/navLinks.js'
 import './Navbar.css'
+import logo from '../../Assets/Logo/logo 256 x 256.png'
 
 function Navbar() {
   const scrolled = useScrollPosition(40)
@@ -13,8 +14,10 @@ function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--solid' : ''}`}>
       <div className="container navbar__inner">
         <a href="#top" className="navbar__logo" aria-label="Moonshot Services home">
-          {/* Moonshot Services Logo Goes Here */}
-          <span className="navbar__logo-placeholder" aria-hidden="true"></span>
+          <div className="navbar__logo-wrapper">
+            <img src={logo} alt="Moonshot Services" className="navbar__logo-image"/>
+          </div>
+
           <span className="navbar__logo-text">Moonshot Services</span>
         </a>
 
