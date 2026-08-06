@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Reveal from '../common/Reveal.jsx'
 import { SITE } from '../../constants/theme.js'
 import './Contact.css'
+import emailjs from "@emailjs/browser";
 
 const INITIAL_FORM = { name: '', email: '', budget: '', message: '' }
 
@@ -28,23 +29,43 @@ function validate(form) {
 function Contact() {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | success
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const validationErrors = validate(form)
-    setErrors(validationErrors)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    if (Object.keys(validationErrors).length === 0) {
-      setStatus('success')
-      setForm(INITIAL_FORM)
+    const validationErrors = validate(form);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) return;
+
+    setStatus("sending");
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          email: form.email,
+          budget: form.budget || "Not specified",
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      setStatus("success");
+      setForm(INITIAL_FORM);
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
     }
-  }
+  };
 
   return (
     <section className="section contact" id="contact">
@@ -132,13 +153,19 @@ function Contact() {
               {errors.message && <span id="message-error" className="form-error">{errors.message}</span>}
             </div>
 
-            <button type="submit" className="btn btn-primary contact__submit">
-              Send Message
+            <button type="submit" className="btn btn-primary contact__submit" disabled={status === "sending"}>
+              {status === "sending" ? "Sending..." : "Send Message"}
             </button>
 
             {status === 'success' && (
               <p className="form-success" role="status">
                 Thanks — your message has been received. We'll be in touch shortly.
+              </p>
+            )}
+
+            {status === "error" && (
+              <p className="form-error" role="alert">
+                Something went wrong. Please try again.
               </p>
             )}
           </form>

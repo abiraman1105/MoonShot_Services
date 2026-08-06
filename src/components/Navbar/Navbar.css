@@ -196,4 +196,8 @@
     .navbar__logo-text{
         font-size:1rem;
     }
+
+    .navbar__actions a{
+      display : none;
+    }
 }
