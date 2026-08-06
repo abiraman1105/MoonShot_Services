@@ -59,6 +59,20 @@ function Contact() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
+      await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        budget: form.budget || "Not specified",
+        message: form.message,
+        }),
+      });
+
       setStatus("success");
       setForm(INITIAL_FORM);
     } catch (error) {
