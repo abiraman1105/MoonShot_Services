@@ -1,0 +1,130 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.project-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-card__media {
+  position: relative;
+  height: 160px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.project-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.35), transparent 60%);
+}
+
+.project-card__category {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.project-card__mark {
+  font-size: 44px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+  transition: transform var(--transition-base);
+}
+
+.project-card:hover .project-card__mark {
+  transform: scale(1.1);
+}
+
+.project-card__body {
+  padding: 26px;
+}
+
+.project-card__title {
+  font-size: 18px;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.project-card__desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.project-card__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.project-card__stack li {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-blue);
+  background: rgba(37, 99, 235, 0.08);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+}
+
+.project-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+}
+
+.project-card__link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-blue);
+  transition: color var(--transition-fast);
+}
+
+.project-card__link--muted {
+  color: var(--color-text-muted);
+}
+
+.project-card__link:hover {
+  color: var(--color-navy);
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
