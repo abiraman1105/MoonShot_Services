@@ -35,7 +35,7 @@ function Projects() {
                 </ul>
 
                 <div className="project-card__actions">
-                  <a href={project.liveUrl} className="project-card__link">Live Demo →</a>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="project-card__link">Live Demo →</a>
                   <a href={project.githubUrl} className="project-card__link project-card__link--muted">GitHub</a>
                 </div>
               </div>
