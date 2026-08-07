@@ -61,7 +61,6 @@ function Contact() {
 
       console.log("Email sent successfully via EmailJS");
       console.log("Now sending data to Google Apps Script...");
-      console.log("Google Apps Script URL:", import.meta.env.VITE_GOOGLE_SCRIPT_URL);
       await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
         method: "POST",
         redirect: "follow",
